@@ -20,3 +20,11 @@ jobs:
       - name: Build Docker Image 
         run: |
           docker build -t marcorrea02/complete-devops-project:${{ env.SHORT_SHA }} .
+      - name: Login to Dockerhub
+        run: |
+          echo "${{ secrets.DOCKERHUB_Token}}" | docker login -u "{{ secrets.DOCKERHUB_USERNAME}}" --password-stdin
+      - name: Push to Dockerhub
+        run: |
+          docker push marcorrea02/complete-devops-project:${{ env.SHORT_SHA }}
+
+
